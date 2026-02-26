@@ -1,0 +1,11 @@
+{% extends '@!EasyAdmin/crud/field/text.html.twig' %}
+
+{% block content %}
+    <div class="markdown-content">
+        {% if field.value %}
+            {{ field.value|markdown_to_html|raw }}
+        {% else %}
+            —
+        {% endif %}
+    </div>
+{% endblock %}

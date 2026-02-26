@@ -1,0 +1,9 @@
+{% block gravity_markdown_editor_widget %}
+    {{ gravity_markdown_editor({
+        id: id,
+        name: full_name,
+        value: value,
+        editor_options: editor_options|default({}),
+        view_options: view_options|default({}),
+    }) }}
+{% endblock %}

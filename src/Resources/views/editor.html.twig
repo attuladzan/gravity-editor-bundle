@@ -1,0 +1,65 @@
+{#
+    Gravity UI Markdown Editor - Twig template.
+    Supports: cdn (esm.sh, no npm), npm (requires app bundle to hydrate)
+#}
+<div class="gravity-markdown-editor-wrapper" id="{{ id }}-wrapper" data-gravity-editor="true"
+     data-editor-options="{{ editor_options|json_encode }}"
+     data-view-options="{{ view_options|json_encode }}"
+     data-lang="{{ lang }}"
+     data-integration="{{ integration }}">
+    <textarea name="{{ name }}" id="{{ id }}" class="gravity-markdown-editor-textarea" rows="10"
+              style="width:100%;box-sizing:border-box;">{{ value }}</textarea>
+    <div id="{{ id }}-mount" class="gravity-markdown-editor-mount"></div>
+</div>
+
+{% if integration == 'cdn' and cdn_urls is defined and cdn_urls|length > 0 %}
+<script type="module">
+(function() {
+    const wrapper = document.getElementById('{{ id }}-wrapper');
+    if (!wrapper || wrapper.dataset.initialized === '1') return;
+
+    const editorOpts = {{ editor_options|json_encode }};
+    const viewOpts = {{ view_options|json_encode }};
+    const lang = '{{ lang }}';
+
+    async function init() {
+        try {
+            const mod = await import('{{ cdn_urls.esm }}');
+            const { useMarkdownEditor, MarkdownEditorView, configure } = mod;
+            const React = (await import('{{ cdn_urls.react_esm }}')).default;
+            const ReactDOM = (await import('{{ cdn_urls.react_dom_esm }}')).default;
+
+            configure({ lang });
+            const editor = useMarkdownEditor(editorOpts);
+
+            const mount = document.getElementById('{{ id }}-mount');
+            const textarea = document.getElementById('{{ id }}');
+            if (!mount || !textarea) return;
+
+            const value = textarea.value || '';
+            if (value) editor.setValue(value);
+            editor.on('change', () => { textarea.value = editor.getValue(); });
+
+            const root = ReactDOM.createRoot(mount);
+            root.render(React.createElement(MarkdownEditorView, { editor, ...viewOpts }));
+            wrapper.dataset.initialized = '1';
+        } catch (e) {
+            console.warn('Gravity Markdown Editor (CDN) init:', e);
+        }
+    }
+    init();
+})();
+</script>
+{% elseif integration == 'npm' %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mount = document.getElementById('{{ id }}-mount');
+    const textarea = document.getElementById('{{ id }}');
+    if (!mount || !textarea) return;
+    const cfg = {{ gravity_markdown_editor_config()|json_encode }};
+    if (typeof window.GravityUIMarkdownEditorInit === 'function') {
+        window.GravityUIMarkdownEditorInit('{{ id }}', mount, textarea, cfg);
+    }
+});
+</script>
+{% endif %}
