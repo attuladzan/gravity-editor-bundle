@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GravityUI\MarkdownEditorBundle\Form;
+namespace Teggoin\MarkdownEditorBundle\Form;
 
-use GravityUI\MarkdownEditorBundle\Service\EditorConfigProvider;
+use Teggoin\MarkdownEditorBundle\Service\EditorConfigProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -63,6 +63,6 @@ final class MarkdownEditorType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'gravity_markdown_editor';
+        return 'teggoin_markdown_editor';
     }
 }

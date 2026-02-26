@@ -1,4 +1,4 @@
-# Gravity UI Markdown Editor Bundle
+   # Gravity UI Markdown Editor Bundle
 
 Symfony 8.1 bundle for [@gravity-ui/markdown-editor](https://github.com/gravity-ui/markdown-editor) integration.
 
@@ -13,7 +13,7 @@ Symfony 8.1 bundle for [@gravity-ui/markdown-editor](https://github.com/gravity-
 ## Installation
 
 ```bash
-composer require gravity-ui/markdown-editor-bundle
+composer require teggoin/gravity-editor-bundle
 ```
 
 Register in `config/bundles.php`:
@@ -21,15 +21,15 @@ Register in `config/bundles.php`:
 ```php
 return [
     // ...
-    GravityUI\MarkdownEditorBundle\GravityUIMarkdownEditorBundle::class => ['all' => true],
+    Teggoin\MarkdownEditorBundle\TeggoinMarkdownEditorBundle::class => ['all' => true],
 ];
 ```
 
 ## Configuration
 
 ```yaml
-# config/packages/gravity_ui_markdown_editor.yaml
-gravity_ui_markdown_editor:
+# config/packages/teggoin_markdown_editor.yaml
+teggoin_markdown_editor:
     integration: cdn   # cdn | npm
     package_version: '15.34.3'
     cdn_base_url: 'https://esm.sh'
@@ -45,7 +45,7 @@ gravity_ui_markdown_editor:
 ### Form Type
 
 ```php
-use GravityUI\MarkdownEditorBundle\Form\MarkdownEditorType;
+use Teggoin\MarkdownEditorBundle\Form\MarkdownEditorType;
 
 $builder->add('content', MarkdownEditorType::class, [
     'editor_options' => ['allow_html' => true],
@@ -61,7 +61,7 @@ $builder->add('content', MarkdownEditorType::class, [
 ### EasyAdmin 5
 
 ```php
-use GravityUI\MarkdownEditorBundle\EasyAdmin\Field\MarkdownEditorField;
+use Teggoin\MarkdownEditorBundle\EasyAdmin\Field\MarkdownEditorField;
 
 yield MarkdownEditorField::new('content');
 ```

@@ -27,7 +27,7 @@ jobs:
         run: composer update --prefer-dist --no-progress
 
       - name: Run tests
-        run: vendor/bin/phpunit
+        run: composer test
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

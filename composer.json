@@ -3,6 +3,16 @@
     "description": "Symfony 8.1 bundle for gravity-ui/markdown-editor integration (forms, EasyAdmin 5, Twig)",
     "type": "symfony-bundle",
     "license": "MIT",
+    "keywords": [
+        "symfony",
+        "bundle",
+        "markdown",
+        "editor",
+        "gravity-ui",
+        "form",
+        "easyadmin",
+        "twig"
+    ],
     "require": {
         "php": ">=8.2",
         "symfony/config": "^6.4|^7.0|^8.0",
@@ -21,13 +31,28 @@
     },
     "autoload": {
         "psr-4": {
-            "GravityUI\\MarkdownEditorBundle\\": "src/"
+            "Teggoin\\MarkdownEditorBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "GravityUI\\MarkdownEditorBundle\\Tests\\": "tests/"
+            "Teggoin\\MarkdownEditorBundle\\Tests\\": "tests/"
         }
+    },
+    "archive": {
+        "exclude": [
+            "composer.lock",
+            ".gitignore",
+            "/tests",
+            "/phpunit.xml.dist",
+            "/.github"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {

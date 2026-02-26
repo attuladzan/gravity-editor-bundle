@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GravityUI\MarkdownEditorBundle\Tests\Service;
+namespace Teggoin\MarkdownEditorBundle\Tests\Service;
 
-use GravityUI\MarkdownEditorBundle\Service\EditorConfigProvider;
+use Teggoin\MarkdownEditorBundle\Service\EditorConfigProvider;
 use PHPUnit\Framework\TestCase;
 
 final class EditorConfigProviderTest extends TestCase

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GravityUI\MarkdownEditorBundle\Service;
+namespace Teggoin\MarkdownEditorBundle\Service;
 
 /**
  * Provides editor configuration from bundle config.

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GravityUI\MarkdownEditorBundle;
+namespace Teggoin\MarkdownEditorBundle;
 
-use GravityUI\MarkdownEditorBundle\DependencyInjection\GravityUIMarkdownEditorExtension;
+use Teggoin\MarkdownEditorBundle\DependencyInjection\TeggoinMarkdownEditorExtension;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
  *
  * Supports forms, EasyAdmin 5, Twig integration, and multiple asset delivery modes (npm/cdn).
  */
-final class GravityUIMarkdownEditorBundle extends AbstractBundle
+final class TeggoinMarkdownEditorBundle extends AbstractBundle
 {
     public function getPath(): string
     {
@@ -22,7 +22,6 @@ final class GravityUIMarkdownEditorBundle extends AbstractBundle
 
     public function getContainerExtension(): ?ExtensionInterface
     {
-        return new GravityUIMarkdownEditorExtension();
+        return new TeggoinMarkdownEditorExtension();
     }
 }
-
