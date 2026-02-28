@@ -51,16 +51,6 @@ npm run build
 php bin/console attuladzan:markdown-editor:install-assets
 ```
 
-### Test the editor (standalone)
-
-After building, serve the `build/` folder and open `test.html`:
-
-```bash
-cd src/Resources/public/build
-python3 -m http.server 8765
-# Open http://localhost:8765/test.html
-```
-
 ## Configuration
 
 ```yaml
