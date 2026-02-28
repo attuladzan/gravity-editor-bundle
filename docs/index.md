@@ -7,7 +7,7 @@ Symfony integration for [@gravity-ui/markdown-editor](https://github.com/gravity
 - **Forms**: `MarkdownEditorType` form type
 - **Twig**: `gravity_markdown_editor()` function
 - **EasyAdmin 5**: `MarkdownEditorField` (when easycorp/easyadmin-bundle is installed)
-- **No npm required**: CDN mode uses esm.sh (ES modules from CDN)
+- **JS build**: Editor loaded from bundled assets (Vite build)
 - **YAML config**: Editor options via bundle configuration
 
 ## Installation
@@ -16,14 +16,18 @@ Symfony integration for [@gravity-ui/markdown-editor](https://github.com/gravity
 composer require attuladzan/gravity-editor-bundle
 ```
 
+Build assets and install:
+
+```bash
+cd vendor/attuladzan/gravity-editor-bundle && npm install && npm run build
+php bin/console assets:install
+```
+
 ## Configuration
 
 ```yaml
 # config/packages/attuladzan_markdown_editor.yaml
 attuladzan_markdown_editor:
-    integration: cdn   # cdn | npm
-    package_version: '15.34.3'
-    cdn_base_url: 'https://esm.sh'
     editor:
         allow_html: false
         sticky_toolbar: true
@@ -56,8 +60,3 @@ yield MarkdownEditorField::new('content');
 ```
 
 Requires: `composer require easycorp/easyadmin-bundle` and optionally `twig/extra-bundle` for markdown preview in index/detail.
-
-## Integration Modes
-
-- **cdn**: No npm. Editor loaded from esm.sh (React + @gravity-ui/markdown-editor as ESM).
-- **npm**: Install `@gravity-ui/markdown-editor` via npm and register `GravityUIMarkdownEditorInit` to hydrate.

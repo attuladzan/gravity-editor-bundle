@@ -42,7 +42,6 @@ final class MarkdownEditorType extends AbstractType
             $this->configProvider->getViewOptions(),
             $options['view_options'] ?? [],
         );
-        $view->vars['integration'] = $this->configProvider->getIntegration();
         $view->vars['lang'] = $this->configProvider->getLang();
     }
 

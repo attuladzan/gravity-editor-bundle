@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Attuladzan\MarkdownEditorBundle\EasyAdmin\Field;
 
-use EasyCorp\Bundle\EasyAdminBundle\Contract\Field\FieldInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Contracts\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use Attuladzan\MarkdownEditorBundle\Form\MarkdownEditorType;
 

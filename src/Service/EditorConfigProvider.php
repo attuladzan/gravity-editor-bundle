@@ -15,41 +15,8 @@ final class EditorConfigProvider
      * @param array<string, mixed> $editorConfig
      */
     public function __construct(
-        private readonly string $integration,
-        private readonly string $packageVersion,
-        private readonly string $cdnBaseUrl,
         private readonly array $editorConfig,
     ) {
-    }
-
-    public function getIntegration(): string
-    {
-        return $this->integration;
-    }
-
-    public function getPackageVersion(): string
-    {
-        return $this->packageVersion;
-    }
-
-    public function getCdnBaseUrl(): string
-    {
-        return $this->cdnBaseUrl;
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function getEditorConfig(): array
-    {
-        return $this->editorConfig;
-    }
-
-    public function getCdnUrl(string $path): string
-    {
-        $base = rtrim($this->cdnBaseUrl, '/');
-
-        return sprintf('%s/@gravity-ui/markdown-editor@%s/%s', $base, $this->packageVersion, ltrim($path, '/'));
     }
 
     /**
@@ -59,8 +26,12 @@ final class EditorConfigProvider
      */
     public function getEditorOptions(): array
     {
+        $allowHtml = $this->editorConfig['allow_html'] ?? false;
+
         return [
-            'allowHTML' => $this->editorConfig['allow_html'] ?? false,
+            'md' => [
+                'html' => $allowHtml,
+            ],
         ];
     }
 

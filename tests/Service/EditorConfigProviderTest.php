@@ -11,17 +11,11 @@ final class EditorConfigProviderTest extends TestCase
 {
     public function testGetEditorOptions(): void
     {
-        $provider = new EditorConfigProvider('cdn', '15.34.3', 'https://esm.sh', [
+        $provider = new EditorConfigProvider([
             'allow_html' => true,
         ]);
 
         $options = $provider->getEditorOptions();
-        $this->assertTrue($options['allowHTML']);
-    }
-
-    public function testGetIntegration(): void
-    {
-        $provider = new EditorConfigProvider('npm', '15.34.3', 'https://esm.sh', []);
-        $this->assertSame('npm', $provider->getIntegration());
+        $this->assertTrue($options['md']['html']);
     }
 }

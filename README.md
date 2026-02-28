@@ -1,13 +1,13 @@
-   # Gravity UI Markdown Editor Bundle
+# Gravity UI Markdown Editor Bundle
 
 Symfony 8.1 bundle for [@gravity-ui/markdown-editor](https://github.com/gravity-ui/markdown-editor) integration.
 
 ## Features
 
 - **Forms**: `MarkdownEditorType` form type
-- **Twig**: `gravity_markdown_editor()` function (works without React build — CDN mode loads React + editor from esm.sh)
+- **Twig**: `gravity_markdown_editor()` function
 - **EasyAdmin 5**: `MarkdownEditorField` (when easycorp/easyadmin-bundle is installed)
-- **No npm required**: CDN mode uses esm.sh (ES modules)
+- **JS build**: Editor loaded from bundled assets (Vite build)
 - **YAML config**: Editor options via bundle configuration
 
 ## Installation
@@ -16,7 +16,9 @@ Symfony 8.1 bundle for [@gravity-ui/markdown-editor](https://github.com/gravity-
 composer require attuladzan/gravity-editor-bundle
 ```
 
-Register in `config/bundles.php`:
+With [Symfony Flex](https://symfony.com/doc/current/setup/flex.html), the bundle is auto-registered and `assets:install` runs after install.
+
+Without Flex, register in `config/bundles.php`:
 
 ```php
 return [
@@ -25,14 +27,45 @@ return [
 ];
 ```
 
+### Install assets
+
+Pre-built assets are included. Install them into `public/`:
+
+```bash
+php bin/console attuladzan:markdown-editor:install-assets
+```
+
+Options:
+
+- `--symlink` — create symlinks instead of copying (useful in development)
+- `--build` — run `npm run build` before installing (if you modified bundle assets)
+
+### Rebuild assets (developers)
+
+If you changed the bundle's JS/CSS:
+
+```bash
+cd vendor/attuladzan/gravity-editor-bundle
+npm install
+npm run build
+php bin/console attuladzan:markdown-editor:install-assets
+```
+
+### Test the editor (standalone)
+
+After building, serve the `build/` folder and open `test.html`:
+
+```bash
+cd src/Resources/public/build
+python3 -m http.server 8765
+# Open http://localhost:8765/test.html
+```
+
 ## Configuration
 
 ```yaml
 # config/packages/attuladzan_markdown_editor.yaml
 attuladzan_markdown_editor:
-    integration: cdn   # cdn | npm
-    package_version: '15.34.3'
-    cdn_base_url: 'https://esm.sh'
     editor:
         allow_html: false
         sticky_toolbar: true
@@ -66,6 +99,19 @@ use Attuladzan\MarkdownEditorBundle\EasyAdmin\Field\MarkdownEditorField;
 yield MarkdownEditorField::new('content');
 ```
 
+**Important:** Add the bundle's form theme so the visual editor renders on new/edit pages. In your `DashboardController` or each `CrudController`:
+
+```php
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+
+public function configureCrud(Crud $crud): Crud
+{
+    return $crud
+        // ...
+        ->addFormTheme('@AttuladzanMarkdownEditor/Form/attuladzan_markdown_editor_widget.html.twig');
+}
+```
+
 Install EasyAdmin and optionally twig/extra-bundle for markdown preview:
 
 ```bash
@@ -73,22 +119,20 @@ composer require easycorp/easyadmin-bundle
 composer require twig/extra-bundle   # for markdown_to_html in index/detail
 ```
 
-## Integration Modes
+## Flex recipe
 
-| Mode | Description |
-|------|-------------|
-| `cdn` | No npm. Editor loaded from esm.sh (React + @gravity-ui/markdown-editor as ESM). |
-| `npm` | Install `@gravity-ui/markdown-editor` via npm and register `window.GravityUIMarkdownEditorInit` to hydrate. |
+To enable auto-install of assets via `composer require`, submit a recipe to [symfony/recipes-contrib](https://github.com/symfony/recipes-contrib). The recipe structure is in `Recipe/1.0/`.
 
 ## Releasing
 
 1. Update version in `composer.json` (optional, tag takes precedence).
-2. Create and push a tag:
+2. Build assets: `npm run build`
+3. Create and push a tag:
    ```bash
    git tag v1.0.0
    git push origin v1.0.0
    ```
-3. GitHub Actions will:
+4. GitHub Actions will:
    - Run tests
    - Create a GitHub Release with auto-generated notes
    - Trigger Packagist update (if `PACKAGIST_USERNAME` and `PACKAGIST_TOKEN` secrets are set)

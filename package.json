@@ -1,0 +1,19 @@
+{
+  "name": "attuladzan/gravity-editor-bundle",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build && cp assets/init.js src/Resources/public/build/gravity-editor-init.js && cp assets/editor-frame.html src/Resources/public/build/editor-frame.html && cp assets/test.html src/Resources/public/build/test.html",
+    "dev": "vite build --watch"
+  },
+  "dependencies": {
+    "@gravity-ui/markdown-editor": "^15.34.3",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "vite-plugin-node-polyfills": "^0.25.0"
+  }
+}

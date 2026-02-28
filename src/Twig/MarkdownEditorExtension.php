@@ -12,7 +12,7 @@ use Twig\TwigFunction;
 /**
  * Twig extension for gravity-ui markdown editor.
  *
- * Renders editor via Twig template. Supports CDN (no npm) and npm integration.
+ * Renders editor via Twig template. Requires JS build (npm run build).
  */
 final class MarkdownEditorExtension extends AbstractExtension
 {
@@ -64,8 +64,6 @@ final class MarkdownEditorExtension extends AbstractExtension
             'editor_options' => $editorOptions,
             'view_options' => $viewOptions,
             'lang' => $this->configProvider->getLang(),
-            'integration' => $this->configProvider->getIntegration(),
-            'cdn_urls' => $this->getCdnUrls(),
         ]);
     }
 
@@ -75,28 +73,9 @@ final class MarkdownEditorExtension extends AbstractExtension
     public function getEditorConfig(): array
     {
         return [
-            'integration' => $this->configProvider->getIntegration(),
             'editor' => $this->configProvider->getEditorOptions(),
             'view' => $this->configProvider->getViewOptions(),
             'lang' => $this->configProvider->getLang(),
-        ];
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    private function getCdnUrls(): array
-    {
-        if ($this->configProvider->getIntegration() !== 'cdn') {
-            return [];
-        }
-
-        $version = $this->configProvider->getPackageVersion();
-
-        return [
-            'esm' => sprintf('https://esm.sh/@gravity-ui/markdown-editor@%s', $version),
-            'react_esm' => 'https://esm.sh/react@18',
-            'react_dom_esm' => 'https://esm.sh/react-dom@18/client',
         ];
     }
 }

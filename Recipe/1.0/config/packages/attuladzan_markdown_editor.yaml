@@ -1,0 +1,6 @@
+attuladzan_markdown_editor:
+    editor:
+        allow_html: false
+        sticky_toolbar: true
+        autofocus: false
+        lang: en

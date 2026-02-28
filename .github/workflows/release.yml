@@ -26,6 +26,17 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-progress
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Build assets
+        run: |
+          npm ci
+          npm run build
+
       - name: Run tests
         run: composer test
 
@@ -44,9 +55,18 @@ jobs:
           PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
         run: |
           if [ -n "$PACKAGIST_USERNAME" ] && [ -n "$PACKAGIST_TOKEN" ]; then
-            curl -sf -X POST "https://packagist.org/api/update-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_TOKEN}" \
+            response_file="$RUNNER_TEMP/packagist-response.json"
+            http_code=$(curl -sS -w "%{http_code}" -o "$response_file" -X POST \
+              "https://packagist.org/api/update-package?username=${PACKAGIST_USERNAME}&apiToken=${PACKAGIST_TOKEN}" \
               -H "Content-Type: application/json" \
-              -d "{\"repository\":{\"url\":\"https://github.com/${{ github.repository }}\"}}"
+              -d "{\"repository\":{\"url\":\"https://github.com/${{ github.repository }}\"}}")
+            if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+              echo "Packagist update triggered (HTTP $http_code)."
+            else
+              echo "Packagist update failed (HTTP $http_code). Response:"
+              cat "$response_file"
+              exit 1
+            fi
           else
             echo "PACKAGIST_USERNAME or PACKAGIST_TOKEN not set - skipping Packagist update"
           fi

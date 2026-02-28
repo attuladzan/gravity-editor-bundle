@@ -22,6 +22,9 @@ Thumbs.db
 .env.local
 .env.*.local
 
+# Node
+/node_modules/
+
 # Build / cache
 /build/
 /var/

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./gravity-editor.css">
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; }
+    #g-md-root { height: 100%; min-height: 0; display: flex; flex-direction: column; }
+  </style>
+</head>
+<body>
+  <div id="g-md-root"></div>
+  <script>
+    (function() {
+      window.__GMD_PENDING__ = null;
+      window.__GMD_TID__ = null;
+
+      window.__GMD_SYNC__ = function() {
+        if (!window.__GMD_EDITOR__ || typeof window.__GMD_EDITOR__.getValue !== 'function' || !window.__GMD_TID__) return;
+        var doc = window.parent && window.parent.document;
+        if (doc) {
+          var el = doc.getElementById(window.__GMD_TID__);
+          if (el) el.value = window.__GMD_EDITOR__.getValue();
+        }
+      };
+
+      window.addEventListener('message', function(e) {
+        if (!e.data || !e.data.type) return;
+        if (e.data.type === 'gmd-init' && e.data.cfg && e.data.tid) {
+          window.__GMD_TID__ = e.data.tid;
+          var cfg = e.data.cfg;
+          var root = document.getElementById('g-md-root');
+          if (window.GravityUIMarkdownEditorInit && root) {
+            window.GravityUIMarkdownEditorInit(e.data.tid, root, null, cfg);
+          } else {
+            window.__GMD_PENDING__ = { cfg: cfg, tid: e.data.tid };
+          }
+        } else if (e.data.type === 'gmd-sync-request') {
+          window.__GMD_SYNC__();
+          try { e.source.postMessage({ type: 'gmd-synced' }, '*'); } catch (err) {}
+        }
+      });
+    })();
+  </script>
+  <script src="./gravity-editor.js"></script>
+  <script>
+    if (window.__GMD_PENDING__ && window.GravityUIMarkdownEditorInit) {
+      var p = window.__GMD_PENDING__;
+      var root = document.getElementById('g-md-root');
+      if (root) window.GravityUIMarkdownEditorInit(p.tid, root, null, p.cfg);
+      window.__GMD_PENDING__ = null;
+    }
+  </script>
+</body>
+</html>

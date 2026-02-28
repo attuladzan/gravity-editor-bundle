@@ -11,13 +11,13 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 /**
  * Gravity UI Markdown Editor integration for Symfony.
  *
- * Supports forms, EasyAdmin 5, Twig integration, and multiple asset delivery modes (npm/cdn).
+ * Supports forms, EasyAdmin 5, Twig integration. Uses JS build (Vite).
  */
 final class AttuladzanMarkdownEditorBundle extends AbstractBundle
 {
     public function getPath(): string
     {
-        return \dirname(__DIR__);
+        return __DIR__;
     }
 
     public function getContainerExtension(): ?ExtensionInterface
