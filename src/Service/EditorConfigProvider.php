@@ -13,9 +13,11 @@ final class EditorConfigProvider
 {
     /**
      * @param array<string, mixed> $editorConfig
+     * @param array<string, mixed> $pluginsConfig
      */
     public function __construct(
         private readonly array $editorConfig,
+        private readonly array $pluginsConfig = [],
     ) {
     }
 
@@ -51,5 +53,22 @@ final class EditorConfigProvider
     public function getLang(): string
     {
         return $this->editorConfig['lang'] ?? 'en';
+    }
+
+    /**
+     * Enabled plugins list for JS (e.g. ['mermaid', 'latex', 'html']).
+     *
+     * @return list<string>
+     */
+    public function getEnabledPlugins(): array
+    {
+        $enabled = [];
+        foreach ($this->pluginsConfig as $name => $value) {
+            if ($value === true) {
+                $enabled[] = $name;
+            }
+        }
+
+        return $enabled;
     }
 }

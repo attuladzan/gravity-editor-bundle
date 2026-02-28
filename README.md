@@ -45,7 +45,32 @@ attuladzan_markdown_editor:
         sticky_toolbar: true
         autofocus: false
         lang: en   # или ru
+    plugins:
+        mermaid: false   # диаграммы Mermaid
+        latex: false    # формулы LaTeX
+        html: false     # HTML-блоки
 ```
+
+### Плагины
+
+Плагины расширяют возможности редактора по [документации](https://github.com/gravity-ui/markdown-editor/tree/main/docs):
+
+| Плагин | Описание | Зависимость |
+|--------|----------|-------------|
+| `mermaid` | Диаграммы Mermaid | @diplodoc/mermaid-extension |
+| `latex` | Формулы LaTeX/Math | @diplodoc/latex-extension |
+| `html` | HTML-блоки | @diplodoc/html-extension |
+
+Плагины включены в сборку бандла. Включите нужные в конфиге (`plugins.latex: true` и т.д.).
+
+**LaTeX:** в редакторе нажмите `/` — в меню появятся «Inline math» и «Block math».
+
+**После изменения конфига обязательно:**
+```bash
+php bin/console cache:clear
+```
+
+Проверка: `php bin/console debug:config attuladzan_markdown_editor` — в выводе должно быть `plugins: { latex: true }`.
 
 ---
 

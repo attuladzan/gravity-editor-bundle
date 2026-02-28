@@ -4,3 +4,7 @@ attuladzan_markdown_editor:
         sticky_toolbar: true
         autofocus: false
         lang: en
+    plugins:
+        mermaid: false
+        latex: false
+        html: false

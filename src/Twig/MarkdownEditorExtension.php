@@ -76,6 +76,7 @@ final class MarkdownEditorExtension extends AbstractExtension
             'editor' => $this->configProvider->getEditorOptions(),
             'view' => $this->configProvider->getViewOptions(),
             'lang' => $this->configProvider->getLang(),
+            'plugins' => $this->configProvider->getEnabledPlugins(),
         ];
     }
 }

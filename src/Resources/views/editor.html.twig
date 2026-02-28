@@ -4,12 +4,13 @@
     Editor runs in iframe to isolate React from parent DOM (avoids setValue conflicts).
     Config passed via data attributes to avoid script escaping issues.
 #}
-{% set _gmd_cfg = gravity_markdown_editor_config() %}
-{% set _gmd_cfg = _gmd_cfg|merge({
-    editor: (_gmd_cfg.editor|default({}))|merge(editor_options|default({})),
-    view: (_gmd_cfg.view|default({}))|merge(view_options|default({})),
-    lang: lang|default(_gmd_cfg.lang|default('en')),
-    initial: (_gmd_cfg.initial|default({}))|merge({markup: value|default('')})
+{% set _gmd_base = gravity_markdown_editor_config() %}
+{% set _gmd_cfg = _gmd_base|merge({
+    editor: (_gmd_base.editor|default({}))|merge(editor_options|default({})),
+    view: (_gmd_base.view|default({}))|merge(view_options|default({})),
+    lang: lang|default(_gmd_base.lang|default('en')),
+    initial: (_gmd_base.initial|default({}))|merge({markup: value|default('')}),
+    plugins: _gmd_base.plugins|default([])
 }) %}
 <div class="gravity-markdown-editor-wrapper" id="{{ id }}-wrapper" data-gravity-editor="true"
      data-gravity-cfg="{{ _gmd_cfg|json_encode|e('html_attr') }}"

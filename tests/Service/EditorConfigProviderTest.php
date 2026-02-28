@@ -18,4 +18,22 @@ final class EditorConfigProviderTest extends TestCase
         $options = $provider->getEditorOptions();
         $this->assertTrue($options['md']['html']);
     }
+
+    public function testGetEnabledPlugins(): void
+    {
+        $provider = new EditorConfigProvider([], [
+            'mermaid' => true,
+            'latex' => false,
+            'html' => true,
+        ]);
+
+        $plugins = $provider->getEnabledPlugins();
+        $this->assertSame(['mermaid', 'html'], $plugins);
+    }
+
+    public function testGetEnabledPluginsEmpty(): void
+    {
+        $provider = new EditorConfigProvider([]);
+        $this->assertSame([], $provider->getEnabledPlugins());
+    }
 }

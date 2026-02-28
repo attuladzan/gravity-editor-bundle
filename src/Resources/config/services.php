@@ -22,6 +22,7 @@ return static function (ContainerConfigurator $container): void {
         ->set('attuladzan_markdown_editor.config_provider', EditorConfigProvider::class)
             ->args([
                 param('attuladzan_markdown_editor.editor'),
+                param('attuladzan_markdown_editor.plugins'),
             ])
             ->alias(EditorConfigProvider::class, 'attuladzan_markdown_editor.config_provider')
 

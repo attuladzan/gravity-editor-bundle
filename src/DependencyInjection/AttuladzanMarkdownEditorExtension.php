@@ -25,6 +25,7 @@ final class AttuladzanMarkdownEditorExtension extends Extension implements Prepe
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('attuladzan_markdown_editor.editor', $config['editor']);
+        $container->setParameter('attuladzan_markdown_editor.plugins', $config['plugins'] ?? []);
 
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.php');
