@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Teggoin\MarkdownEditorBundle\Form;
+namespace Attuladzan\MarkdownEditorBundle\Form;
 
-use Teggoin\MarkdownEditorBundle\Service\EditorConfigProvider;
+use Attuladzan\MarkdownEditorBundle\Service\EditorConfigProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -63,6 +63,6 @@ final class MarkdownEditorType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'teggoin_markdown_editor';
+        return 'attuladzan_markdown_editor';
     }
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Teggoin\MarkdownEditorBundle\Tests\Service;
+namespace Attuladzan\MarkdownEditorBundle\Tests\Service;
 
-use Teggoin\MarkdownEditorBundle\Service\EditorConfigProvider;
+use Attuladzan\MarkdownEditorBundle\Service\EditorConfigProvider;
 use PHPUnit\Framework\TestCase;
 
 final class EditorConfigProviderTest extends TestCase

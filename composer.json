@@ -1,5 +1,5 @@
 {
-    "name": "teggoin/gravity-editor-bundle",
+    "name": "attuladzan/gravity-editor-bundle",
     "description": "Symfony 8.1 bundle for gravity-ui/markdown-editor integration (forms, EasyAdmin 5, Twig)",
     "type": "symfony-bundle",
     "license": "MIT",
@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Teggoin\\MarkdownEditorBundle\\": "src/"
+            "Attuladzan\\MarkdownEditorBundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Teggoin\\MarkdownEditorBundle\\Tests\\": "tests/"
+            "Attuladzan\\MarkdownEditorBundle\\Tests\\": "tests/"
         }
     },
     "archive": {

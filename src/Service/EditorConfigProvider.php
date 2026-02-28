@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Teggoin\MarkdownEditorBundle\Service;
+namespace Attuladzan\MarkdownEditorBundle\Service;
 
 /**
  * Provides editor configuration from bundle config.

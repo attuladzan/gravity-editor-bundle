@@ -13,14 +13,14 @@ Symfony integration for [@gravity-ui/markdown-editor](https://github.com/gravity
 ## Installation
 
 ```bash
-composer require teggoin/gravity-editor-bundle
+composer require attuladzan/gravity-editor-bundle
 ```
 
 ## Configuration
 
 ```yaml
-# config/packages/teggoin_markdown_editor.yaml
-teggoin_markdown_editor:
+# config/packages/attuladzan_markdown_editor.yaml
+attuladzan_markdown_editor:
     integration: cdn   # cdn | npm
     package_version: '15.34.3'
     cdn_base_url: 'https://esm.sh'
@@ -36,7 +36,7 @@ teggoin_markdown_editor:
 ### Form Type
 
 ```php
-use Teggoin\MarkdownEditorBundle\Form\MarkdownEditorType;
+use Attuladzan\MarkdownEditorBundle\Form\MarkdownEditorType;
 
 $builder->add('content', MarkdownEditorType::class);
 ```
@@ -50,7 +50,7 @@ $builder->add('content', MarkdownEditorType::class);
 ### EasyAdmin 5
 
 ```php
-use Teggoin\MarkdownEditorBundle\EasyAdmin\Field\MarkdownEditorField;
+use Attuladzan\MarkdownEditorBundle\EasyAdmin\Field\MarkdownEditorField;
 
 yield MarkdownEditorField::new('content');
 ```

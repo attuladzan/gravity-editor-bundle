@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Teggoin\MarkdownEditorBundle\EasyAdmin\Field;
+namespace Attuladzan\MarkdownEditorBundle\EasyAdmin\Field;
 
 use EasyCorp\Bundle\EasyAdminBundle\Contract\Field\FieldInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
-use Teggoin\MarkdownEditorBundle\Form\MarkdownEditorType;
+use Attuladzan\MarkdownEditorBundle\Form\MarkdownEditorType;
 
 /**
  * EasyAdmin 5 Field for gravity-ui markdown editor.
@@ -25,6 +25,6 @@ final class MarkdownEditorField implements FieldInterface
             ->setProperty($propertyName)
             ->setLabel($label ?? $propertyName)
             ->setFormType(MarkdownEditorType::class)
-            ->setTemplatePath('@TeggoinMarkdownEditor/EasyAdmin/field_markdown.html.twig');
+            ->setTemplatePath('@AttuladzanMarkdownEditor/EasyAdmin/field_markdown.html.twig');
     }
 }

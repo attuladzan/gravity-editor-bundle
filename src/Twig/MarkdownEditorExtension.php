@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Teggoin\MarkdownEditorBundle\Twig;
+namespace Attuladzan\MarkdownEditorBundle\Twig;
 
-use Teggoin\MarkdownEditorBundle\Service\EditorConfigProvider;
+use Attuladzan\MarkdownEditorBundle\Service\EditorConfigProvider;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -57,7 +57,7 @@ final class MarkdownEditorExtension extends AbstractExtension
             $options['view_options'] ?? [],
         );
 
-        return $this->twig->render('@TeggoinMarkdownEditor/editor.html.twig', [
+        return $this->twig->render('@AttuladzanMarkdownEditor/editor.html.twig', [
             'id' => $id,
             'name' => $name,
             'value' => $value,
